@@ -1,103 +1,158 @@
+'use client'
 import Image from "next/image";
+import { useState } from "react";
 
-export default function Home() {
+export default function GamePage() {
+  const [activeTab, setActiveTab] = useState("最新上架");
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const tabs = ["最新上架", "人氣排行", "熱門活動", "重要公告", "網頁儲值", "我的遊戲"];
+  const screenshots = [
+    "/screenshot_1.png",
+    "/screenshot_2.png",
+    "/screenshot_3.gif",
+    "/screenshot_4.png",
+    "/screenshot_5.png",
+    "/screenshot_6.png",
+  ];
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? screenshots.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === screenshots.length - 1 ? 0 : prev + 1));
+  };
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-black text-white">
+      {/* Header */}
+      <header className="flex items-center justify-between px-6 py-4 bg-neutral-900">
+        <div className="flex items-center space-x-2">
+          <Image src="/logo.png" alt="logo" width={120} height={40} />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <nav className="flex space-x-6">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`text-sm font-medium hover:text-gray-300 ${
+                activeTab === tab ? "text-white" : "text-gray-400"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </nav>
+        <div className="flex space-x-4 items-center">
+          <button>
+            <Image src="/search_icon.svg" alt="search_icon" width={22} height={22} />
+          </button>
+          <button className="text-sm">登入</button>
+          <button className="text-sm">註冊</button>
+        </div>
+      </header>
+
+      {/* Hero Banner */}
+      <section className="relative w-full h-[520px]">
+        <Image
+          src="/banner.png"
+          alt="Banner"
+          fill
+          className="object-cover"
+        />
+
+        {/* 圖片漸層 */}
+        <Image
+          src="/gradient.png"
+          alt="gradient overlay"
+          fill
+          className="object-cover"
+        />
+
+        {/* Game Detail */}
+        <div className="absolute bottom-0 left-0 w-full px-10 py-6">
+          <div className="bg-black/60 p-6 rounded-lg">
+            <div className="flex items-center space-x-4">
+              <Image
+                src="/game-icon.png"
+                alt="Game Icon"
+                width={80}
+                height={80}
+                className="rounded-lg"
+              />
+              <div>
+                <h2 className="text-xl font-bold">勝利女神妮姬</h2>
+                <p className="text-sm text-gray-400">GODDESS OF VICTORY: NIKKE</p>
+              </div>
+              <button className="ml-auto px-6 py-2 bg-red-600 hover:bg-red-700 rounded text-white font-medium">
+                前往遊戲
+              </button>
+            </div>
+            <p className="mt-4 text-sm text-gray-300 leading-relaxed max-w-3xl">
+              第3人稱射擊手遊。集中於《天命之子》所有Live2D ver 3.3和2.5D PAPER FOLDING技術原理的戰鬥動作。
+              故事背景講述在傾外星人淘汰的地球，代替人類戰鬥的“少女”的故事。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 輪播 */}
+      <section className="relative mt-10 px-6">
+        <div className="relative overflow-hidden">
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{
+              transform: `translateX(-${currentIndex * 50}%)`,
+            }}
+          >
+            {screenshots.map((src, i) => (
+              <div
+                key={i}
+                className="basis-1/2 flex-shrink-0 px-2"
+              >
+                <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
+                  <Image
+                    src={src}
+                    alt={`screenshot-${i}`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 左右切換按鈕 */}
+          <button
+            onClick={handlePrev}
+            className="absolute top-1/2 left-2 -translate-y-1/2 bg-black/60 p-2 rounded-full"
+          >
+            ◀
+          </button>
+          <button
+            onClick={handleNext}
+            className="absolute top-1/2 right-2 -translate-y-1/2 bg-black/60 p-2 rounded-full"
+          >
+            ▶
+          </button>
+        </div>
+      </section>
+
+      {/* 下方小縮圖（置中） */}
+      <section className="px-6 py-8 flex justify-center gap-4">
+        {screenshots.map((src, i) => (
+          <div key={i} className="w-[120px] h-[80px] bg-gray-800 rounded-lg overflow-hidden">
+            <Image
+              src={src}
+              alt={`thumb-${i}`}
+              width={120}
+              height={80}
+              className="object-cover"
+            />
+          </div>
+        ))}
+      </section>
     </div>
   );
 }
