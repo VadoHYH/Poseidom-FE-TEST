@@ -61,14 +61,7 @@ export default function GamePage() {
           fill
           className="object-cover"
         />
-
-        {/* 圖片漸層 */}
-        <Image
-          src="/gradient.png"
-          alt="gradient overlay"
-          fill
-          className="object-cover"
-        />
+        
 
         {/* Game Detail */}
         <div className="absolute bottom-0 left-0 w-full px-10 py-6">
