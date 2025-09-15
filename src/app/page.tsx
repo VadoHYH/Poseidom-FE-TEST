@@ -83,8 +83,7 @@ export default function GamePage() {
               </button>
             </div>
             <p className="mt-4 text-sm text-gray-300 leading-relaxed max-w-3xl">
-              第3人稱射擊手遊。集中於《天命之子》所有Live2D ver 3.3和2.5D PAPER FOLDING技術原理的戰鬥動作。
-              故事背景講述在傾外星人淘汰的地球，代替人類戰鬥的“少女”的故事。
+            第3人稱射擊手遊。集中了《天命之子》所有Live2D ver 3.3和2.5D PAPER FOLDING技術來實現生動的戰鬥動作。故事背景講述在被外星人淘汰的地球，代替人類上戰場的戰鬥少女的故事。
             </p>
           </div>
         </div>
